@@ -1,6 +1,5 @@
 services:
   rsshub:
-    build: rsshub
     image: diygod/rsshub
     ports:
       - 1200
