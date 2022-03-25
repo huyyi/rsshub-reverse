@@ -2,7 +2,7 @@ services:
   rsshub:
     image: diygod/rsshub
     ports:
-      - 1200
+      - 1200:1200
     environment:
       NODE_ENV: production
       CACHE_TYPE: redis
@@ -13,7 +13,7 @@ services:
       - redis
       - browserless
     volumes:
-      - ./reverse:/app/lib/v2/reverse
+      - ./lib/v2/reverse:/app/lib/v2/reverse
   
   redis:
     image: redis:alpine
