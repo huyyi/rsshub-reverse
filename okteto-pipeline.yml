@@ -1,3 +1,4 @@
 icon: https://img.icons8.com/color/48/000000/rss.png
 deploy:
-  - okteto stack deploy
+  - okteto stack deploy --file okteto-stack.yaml
+  - okteto stack deploy --file okteto-fresh-stack.yaml
