@@ -23,15 +23,8 @@ jobs:
         uses: okteto/context@latest
         with:
           token: ${{ secrets.OKTETO_TOKEN }}
-
-      - name: namespace
-        uses: okteto/namespace@latest
-        with:
-          name: ${{ secrets.OKTETO_NAMESPACE }}
+          namespace: ${{ secrets.OKTETO_NAMESPACE }}
 
       - name: pipeline
         uses: okteto/pipeline@latest
-        with:
-          name: rsshub
-          timeout: 8m
 
