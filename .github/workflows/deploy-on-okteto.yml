@@ -1,0 +1,40 @@
+name: deploy-on-okteto
+
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: 
+      - reverse
+    paths:
+      - 'lib/**'
+      - '.github/workflows/build-and-push-to-gcr.yml'
+      - 'Dockerfile'
+      - 'package.json'
+      - 'yarn.lock'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch: ~
+
+
+jobs:
+  setup-context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@master
+      
+      - name: context
+        uses: okteto/context@latest
+        with:
+          token: ${{ secrets.OKTETO_TOKEN }}
+
+      - name: namespace
+        uses: okteto/namespace@latest
+        with:
+          name: ${{ secrets.OKTETO_NAMESPACE }}
+
+      - name: pipeline
+        uses: okteto/pipeline@latest
+        with:
+          name: rsshub
+          timeout: 8m
+

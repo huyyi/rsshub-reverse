@@ -1,0 +1,28 @@
+services:
+  rsshub:
+    build: rsshub
+    image: okteto.dev/rsshub-reverse:latest
+    ports:
+      - 1200
+    environment:
+      NODE_ENV: production
+      CACHE_TYPE: redis
+      REDIS_URL: 'redis://redis:6379/'
+      PUPPETEER_WS_ENDPOINT: 'ws://browserless:3000'
+      DISCUZ_COOKIE_01: ${{ secrets.DISCUZ_COOKIE_01 }}
+    depends_on:
+      - redis
+      - browserless
+    volumes:
+      - ./reverse:/app/lib/v2/reverse
+  
+  redis:
+    image: redis:alpine
+    volumes:
+      - redis:/data
+  
+  browserless:
+    image: browserless/chrome:latest
+
+volumes:
+  redis:
