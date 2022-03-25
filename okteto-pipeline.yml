@@ -1,4 +1,3 @@
 icon: https://img.icons8.com/color/48/000000/rss.png
 deploy:
-  - okteto build --tag okteto.dev/rsshub-reverse:latest .
   - okteto stack deploy
