@@ -23,8 +23,11 @@ jobs:
         uses: okteto/context@latest
         with:
           token: ${{ secrets.OKTETO_TOKEN }}
-          namespace: ${{ secrets.OKTETO_NAMESPACE }}
 
       - name: pipeline
         uses: okteto/pipeline@latest
+        with:
+          name: rsshub
+          namespace: ${{ secrets.OKTETO_NAMESPACE }}
+
 
