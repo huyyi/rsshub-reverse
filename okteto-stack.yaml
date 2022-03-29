@@ -3,6 +3,7 @@ services:
     image: diygod/rsshub
     ports:
       - 1200:1200
+    env_file: .env
     environment:
       NODE_ENV: production
       CACHE_TYPE: redis
