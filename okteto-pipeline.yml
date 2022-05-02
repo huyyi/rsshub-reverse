@@ -1,4 +1,4 @@
 icon: https://img.icons8.com/color/48/000000/rss.png
 deploy:
   - curl --user '${WEBDAV_AUTH}' 'https://dav.jianguoyun.com/dav/GitHubAction/rsshub/.env' -o '.env' 
-  - okteto stack deploy
+  - okteto deploy

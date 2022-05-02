@@ -1,32 +1,40 @@
+version: '3'
+
 services:
   rsshub:
-    image: diygod/rsshub
+    image: diygod/rsshub:chromium-bundled
     ports:
-      - 1200:1200
+      - '1200:1200'
     env_file: .env
     environment:
       NODE_ENV: production
       CACHE_TYPE: redis
       REDIS_URL: 'redis://redis:6379/'
-      PUPPETEER_WS_ENDPOINT: 'ws://browserless:3000'
+      # PUPPETEER_WS_ENDPOINT: 'ws://browserless:3000'
     depends_on:
       - redis
-      - browserless
+      # - browserless
     volumes:
       - ./lib/v2/reverse:/app/lib/v2/reverse
   
   redis:
     image: redis:alpine
+    restart: always
     volumes:
       - redis:/data
   
-  browserless:
-    image: browserless/chrome:latest
+  # browserless:
+  #   image: browserless/chrome
+  #   restart: always
+  #   ulimits:
+  #     core:
+  #       hard: 0
+  #       soft: 0
 
 volumes:
   redis:
 
 endpoints:
   - path: /
-    service: frontend
+    service: rsshub
     port: 1200
