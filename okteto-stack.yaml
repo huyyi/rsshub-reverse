@@ -25,3 +25,8 @@ services:
 
 volumes:
   redis:
+
+endpoints:
+  - path: /
+    service: frontend
+    port: 1200
