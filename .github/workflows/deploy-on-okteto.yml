@@ -22,6 +22,10 @@ jobs:
       - name: checkout
         uses: actions/checkout@master
       
+      - name: download
+        run: |
+          curl --user '${WEBDAV_AUTH}' 'https://dav.jianguoyun.com/dav/GitHubAction/rsshub/.env' -o '.env'
+          
       - name: context
         uses: okteto/context@latest
         with:
