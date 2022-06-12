@@ -3,7 +3,7 @@ name: deploy-on-okteto
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: 
+    branches:
       - master
     paths:
       - 'lib/**'
@@ -11,7 +11,7 @@ on:
       - '.github/workflows/*'
   schedule:
     - cron: "30 2 * * *"
-    
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch: ~
 
@@ -21,20 +21,20 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@master
-      
+
       - name: download
         run: |
-          curl --user '${{ secrets.WEBDAV_AUTH }}' 'https://dav.jianguoyun.com/dav/GitHubAction/rsshub/.env' -o '.env'
-          
+          curl --user '${{ secrets.WEBDAV_AUTH }}' 'https://dav.jianguoyun.com/dav/GitHubAction/rsshub/.env' -o '.env.rsshub'
+
       - name: context
         uses: okteto/context@latest
         with:
           token: ${{ secrets.OKTETO_TOKEN }}
 
-      - name: pipeline
-        uses: okteto/pipeline@latest
+      - name: deploy
+        uses: docker://okteto/okteto
         with:
-          name: rsshub
-          namespace: ${{ secrets.OKTETO_NAMESPACE }}
+          entrypoint: okteto
+          args: deploy --namespace ${{ secrets.OKTETO_NAMESPACE }} --name rsshub
 
 

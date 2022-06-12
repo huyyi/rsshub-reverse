@@ -1,6 +1,2 @@
 deploy:
     compose: docker-compose.yml
-    # endpoints:
-    #   - path: /
-    #     service: rsshub
-    #     port: 1200
