@@ -42,6 +42,22 @@ jobs:
     needs: deploy
     steps:
       - name: test-reverse
+        shell: python
         run: |
-          curl -I "https://rsshub-${{ secrets.OKTETO_NAMESPACE }}.cloud.okteto.net/reverse/https%3A%2F%2Fsspai.com%2Ffeed?mode=fulltext" 2>/dev/null | grep 404
-          [[ $? -eq 0 ]] && exit 1
+          import time
+          import sys
+          import requests
+
+          test_url = "https://rsshub-${{ secrets.OKTETO_NAMESPACE }}.cloud.okteto.net/reverse/https%3A%2F%2Fsspai.com%2Ffeed?mode=fulltext"
+          for i in range(1, 11):
+            print(f"test {i}/10")
+            status = requests.get(test_url).status_code
+            if status == 200:
+              print("return 200, ok")
+              sys.exit(0)
+            elif status == 404:
+              print("return 404, failed")
+              sys.exit(1)
+            else:
+              print("waiting for server ready...")
+              time.sleep(30)
