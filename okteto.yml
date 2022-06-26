@@ -1,2 +1,5 @@
+build:
+    rsshub:
+        dockerfile: Dockerfile
 deploy:
     compose: docker-compose.yml

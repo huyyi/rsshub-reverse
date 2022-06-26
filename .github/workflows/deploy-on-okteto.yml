@@ -16,7 +16,7 @@ on:
   workflow_dispatch: ~
 
 jobs:
-  setup-context:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -37,4 +37,11 @@ jobs:
           entrypoint: okteto
           args: deploy --namespace ${{ secrets.OKTETO_NAMESPACE }} --name rsshub
 
-
+  test:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: test-reverse
+        run: |
+          curl -I "https://rsshub-${{ secrets.OKTETO_NAMESPACE }}.cloud.okteto.net/reverse/https%3A%2F%2Fsspai.com%2Ffeed?mode=fulltext" 2>/dev/null | grep 404
+          [[ $? -eq 0 ]] && exit 1
