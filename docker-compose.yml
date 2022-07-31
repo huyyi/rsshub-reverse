@@ -2,7 +2,7 @@ version: '3'
 
 services:
   rsshub:
-    image: ${OKTETO_BUILD_RSSHUB_IMAGE}
+    image: ghcr.io/huyyi/rsshub-reverse:latest
     ports:
       - '1200:1200'
     env_file: .env.rsshub

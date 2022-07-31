@@ -4,6 +4,7 @@
   - 支持从webdav服务器获取.env文件（需要添加secrets`WEBDAV_AUTH`，格式为username:password）
 
 ## 添加Okteto自动布署
+> 不要使用 Okteto 部署 RssHub 会被认为提供代理然后封号
 1. fork本项目
 2. 在github添加两个secrets：`OKTETO_NAMESPACE`和`OKTETO_TOKEN`
 3. 在OKTETO添加secrets：`WEBDAV_AUTH`
